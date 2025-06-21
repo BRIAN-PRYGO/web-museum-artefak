@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Data User - Museum Artefak</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            position: relative;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .user-button {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: white;
+            color: #2575fc;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .user-button:hover {
+            background: #eef3ff;
+        }
+
+        main {
+            padding: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #2575fc;
+            color: white;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 16px;
+            background-color: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #1e60d2;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <button class="user-button" onclick="showUserData()">User</button>
+        <h2>Data Pengguna Login</h2>
+    </header>
+
+    <main>
+        <div id="userTableContainer" class="hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>No. Ponsel</th>
+                    </tr>
+                </thead>
+                <tbody id="userData">
+                    <!-- Data akan ditampilkan di sini -->
+                </tbody>
+            </table>
+
+            <button class="back-button" onclick="history.back()">← Kembali</button>
+        </div>
+    </main>
+
+    <script>
+        function showUserData() {
+            const nama = localStorage.getItem("nama");
+            const email = localStorage.getItem("email");
+            const hp = localStorage.getItem("hp");
+
+            const container = document.getElementById("userTableContainer");
+            const tbody = document.getElementById("userData");
+
+            if (nama && email && hp) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td>${nama}</td>
+                        <td>${email}</td>
+                        <td>${hp}</td>
+                    </tr>
+                `;
+                container.classList.remove("hidden");
+            } else {
+                alert("Belum ada data pengguna yang login.");
+            }
+        }
+    </script>
+
+</body>
+</html>

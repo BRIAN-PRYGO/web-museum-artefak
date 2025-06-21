@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Museum Artefak</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2575fc;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        input[type="text"], input[type="tel"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: #2575fc;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1e60d2;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back-link a {
+            text-decoration: none;
+            color: #2575fc;
+            font-weight: 600;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Formulir Pendaftaran</h2>
+        <form id="loginForm">
+            <label for="nama">Nama Lengkap</label>
+            <input type="text" id="nama" name="nama" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="contoh@email.com">
+
+            <label for="hp">Nomor Ponsel</label>
+            <input type="tel" id="hp" name="hp" required pattern="08[0-9]{8,11}" placeholder="Contoh: 081234567890">
+
+            <div class="error" id="errorMsg"></div>
+
+            <button type="submit">Daftar</button>
+        </form>
+
+        <div class="back-link">
+            <a href="index.html">← Kembali ke Beranda</a>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const errorMsg = document.getElementById('errorMsg');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nama = form.nama.value.trim();
+            const email = form.email.value.trim();
+            const hp = form.hp.value.trim();
+
+            if (!nama || !email || !hp) {
+                errorMsg.textContent = 'Semua kolom wajib diisi.';
+                return;
+            }
+
+            const emailPattern = /^[^@]+@[^@]+\.[a-z]{2,}$/i;
+            const hpPattern = /^08[0-9]{8,11}$/;
+
+            if (!emailPattern.test(email)) {
+                errorMsg.textContent = 'Format email tidak valid.';
+                return;
+            }
+
+            if (!hpPattern.test(hp)) {
+                errorMsg.textContent = 'Nomor ponsel tidak valid. Gunakan format 08xxxxxxxxxx.';
+                return;
+            }
+
+            localStorage.setItem("hp", hp);
+            localStorage.setItem("nama", nama);
+            localStorage.setItem("email", email);
+
+            window.location.href = "index.html";
+        });
+    </script>
+</body>
+</html>
